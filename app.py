@@ -22,7 +22,17 @@ if st.button("Buat Resep!"):
         try:
             # Build the prompt for the AI and get the recipe
             client = Groq(api_key=API_KEY_GROQ)
-            prompt_koki = f"Lo itu koki rumahan yang jago masak. Gue cuma punya bahan ini: {bahan_input}. Bikinin 1 resep masakan yang gampang dibuat. Tulis nama masakannya di baris pertama, terus bahan-bahannya, sama cara bikinnya. Pake bahasa Indonesia yang santai dan natural, jangan pake emoji, jangan pake tanda strip panjang."
+            prompt_koki = (
+                "Anda adalah koki rumahan yang jago masak. "
+                f"Saya cuma punya bahan ini: {bahan_input}. "
+                "Bikinin 1 resep masakan yang gampang dibuat. "
+                "Format harus begini: "
+                "Nama masakan di baris pertama. "
+                "Lalu bagian 'Bahan', 'Peralatan' (singkat), dan 'Langkah memasak' yang detail dan step-by-step, "
+                "pakai nomor 1, 2, 3. "
+                "Jelasin juga cara masaknya (api kecil/sedang/besar, waktu kira-kira, kapan dibalik/diangkat). "
+                "Pake bahasa Indonesia yang santai dan natural, jangan pake emoji, jangan pake tanda strip panjang."
+            )
             
             respon_ai = client.chat.completions.create(
                 messages=[{"role": "user", "content": prompt_koki}],
