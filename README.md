@@ -13,6 +13,37 @@ A simple Streamlit app that suggests a cooking recipe from leftover ingredients 
 - Groq Python SDK
 - Pollinations image API
 
+## Architecture flow
+
+**Ringkasan alur data:**
+1. Pengguna memasukkan daftar bahan pada UI Streamlit.
+2. Input tersebut dikirim sebagai prompt ke Groq (API teks).
+3. Respons teks (resep) dipakai untuk membentuk prompt baru ke Pollinations (API gambar).
+4. Streamlit menampilkan gambar hasil dan teks resep ke pengguna.
+
+**Diagram alur (ASCII):**
+```
+
++--------------------+     +--------------------+     +-----------------------+
+| User Input: Bahan  | --> | Groq LLM API (Teks) | --> | Resep Teks (Output)  |
++--------------------+     +--------------------+     +-----------------------+
+           |                                             |
+           |                                             v
+           |                                     +-----------------------+
+           +------------------------------------> | Prompt Gambar        |
+                                                  +-----------------------+
+                                                           |
+                                                           v
+                                              +--------------------------+
+                                              | Pollinations Image API   |
+                                              +--------------------------+
+                                                           |
+                                                           v
+                                              +--------------------------+
+                                              | Gambar + Resep di UI     |
+                                              +--------------------------+
+```
+
 ## Requirements
 - Python 3.10+ recommended
 - A Groq API key
